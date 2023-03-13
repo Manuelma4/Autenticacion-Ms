@@ -2,9 +2,9 @@
   "name": "typescript-auth-backend",
   "version": "1.0.0",
   "description": "Backend de autenticación en TypeScript",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node src/index.ts",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
