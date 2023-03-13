@@ -2,7 +2,7 @@ import app from './app';
 import mongoose from 'mongoose';
 
 const port = process.env.PORT || 3000;
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/auth';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/authenticate';
 
 mongoose.connect(mongoURI, {})
   .then(() => {
