@@ -4,7 +4,7 @@
   "description": "Backend de autenticación en TypeScript",
   "main": "index.ts",
   "scripts": {
-    "start": "node src/index.ts",
+    "start": "ts-node src/app.ts",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,11 +24,11 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.1",
-    "ts-node": "^10.9.1"
+    "mongoose": "^7.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "ts-node": "^10.9.1"
   }
 }
