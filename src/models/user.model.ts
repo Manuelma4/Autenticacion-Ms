@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   idRol: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true },
   password: { type: String, required: true },
-  email: { type: String, required: true }
+  email: { type: String, required: true },
 });
 
 const User = mongoose.model<UserDocument>('User', userSchema);
