@@ -3,6 +3,10 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import User from '../models/user.model';
 
+
+const secretOrPrivateKey: jwt.Secret = process.env.JWT_SECRET ?? 'defaultSecret';
+const token = jwt.sign({ User }, secretOrPrivateKey, { expiresIn: '1h' });
+
 const authController = {
   async register(req: Request, res: Response) {
     try {
@@ -10,11 +14,12 @@ const authController = {
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = new User({ idUsuario, username, idRol, password: hashedPassword, email });
       await user.save();
-      res.status(201).json({ message: 'User registered successfully' });
+      res.status(201).json({ message: 'Usuario registrado' });
     } catch (error) {
-      res.status(500).json({error: error.message });
+      res.status(500).json({message: "Fallo al registrar usuario"});
     }
   },
+
 
   async login(req: Request, res: Response) {
     try {
@@ -30,7 +35,7 @@ const authController = {
       const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' });
       res.status(200).json({ token });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: "Error" });
     }
   },
 
@@ -50,7 +55,7 @@ const authController = {
       await user.save();
       res.status(200).json({ message: 'Password changed successfully' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: 'Fallo al cambiar la contraseña' });
     }
   },
 
@@ -58,7 +63,7 @@ const authController = {
     try {
       res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: 'Error al salir' });
     }
   }
 };

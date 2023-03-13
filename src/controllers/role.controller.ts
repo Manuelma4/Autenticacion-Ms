@@ -7,7 +7,7 @@ const roleController = {
       const roles = await Role.find();
       res.status(200).json({ roles });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: 'Error' });
     }
   },
 
@@ -22,7 +22,7 @@ const roleController = {
       await role.save();
       res.status(201).json({ message: 'Role created successfully' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: 'Error al crear rol' });
     }
   },
 
@@ -34,7 +34,7 @@ const roleController = {
       }
       res.status(200).json({ role });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: 'Rol no encontrado' });
     }
   },
 
@@ -55,7 +55,7 @@ const roleController = {
       }
       res.status(200).json({ message: 'Role updated successfully', role });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: 'Fallo al actualizar rol' });
     }
   },
 
@@ -66,7 +66,7 @@ const roleController = {
         return res.status(404).json({ error: 'Role not found' });
       }
       res.status(200).json({ message: 'Role deleted successfully', role });
-    } catch (error) {  res.status(500).json({ error: error.message });
+    } catch (error) {  res.status(500).json({ error: 'Error al borrar el rol' });
     }
 },
 };
