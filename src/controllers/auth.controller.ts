@@ -4,9 +4,6 @@ import bcrypt from 'bcrypt';
 import User from '../models/user.model';
 
 
-const secretOrPrivateKey: jwt.Secret = process.env.JWT_SECRET ?? 'defaultSecret';
-const token = jwt.sign({ User }, secretOrPrivateKey, { expiresIn: '1h' });
-
 const authController = {
   async register(req: Request, res: Response) {
     try {
@@ -32,7 +29,8 @@ const authController = {
       if (!isPasswordValid) {
         return res.status(401).json({ error: 'Invalid username or password' });
       }
-      const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const secretOrPrivateKey: jwt.Secret = process.env.JWT_SECRET ?? 'defaultSecret';
+      const token = jwt.sign({ username }, secretOrPrivateKey, { expiresIn: '1h' });
       res.status(200).json({ token });
     } catch (error) {
       res.status(500).json({ error: "Error" });
