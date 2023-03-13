@@ -13,6 +13,8 @@ const roleController = {
 
   async create(req: Request, res: Response) {
     try {
+
+      console.log(req.body)
       const { idRol, nombreRol } = req.body;
       const existingRole = await Role.findOne({ idRol });
       if (existingRole) {
@@ -22,7 +24,7 @@ const roleController = {
       await role.save();
       res.status(201).json({ message: 'Role created successfully' });
     } catch (error) {
-      res.status(500).json({ error: 'Error al crear rol' });
+      res.status(500).json({ error: req.body });
     }
   },
 

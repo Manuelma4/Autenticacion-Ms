@@ -11,9 +11,12 @@ export interface UserDocument extends mongoose.Document {
 const userSchema = new mongoose.Schema({
   idUsuario: { type: Number, required: true },
   username: { type: String, required: true },
-  idRol: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true },
+  idRol: { type: Number, required: true},
   password: { type: String, required: true },
   email: { type: String, required: true },
+},{
+  timestamps: true,
+  versionKey: false,
 });
 
 const User = mongoose.model<UserDocument>('User', userSchema);

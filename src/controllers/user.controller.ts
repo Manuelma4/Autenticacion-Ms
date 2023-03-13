@@ -4,7 +4,7 @@ import User from '../models/user.model';
 const userController = {
   async getAll(req: Request, res: Response) {
     try {
-      const users = await User.find().populate('role');
+      const users = await User.find();
       res.status(200).json(users);
     } catch (error) {
       res.status(500).json({ error: 'ErrorgetAll' });
@@ -13,8 +13,10 @@ const userController = {
 
   async create(req: Request, res: Response) {
     try {
-      const { username, idRol, password, email } = req.body;
-      const user = new User({ username, idRol, password, email });
+
+      console.log(req.body)
+      const { idUsuario, username, idRol, password, email } = req.body;
+      const user = new User({ idUsuario, username, idRol, password, email });
       await user.save();
       res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
@@ -53,25 +55,18 @@ const userController = {
       res.status(500).json({ error: 'Errorupdate' });
     }
   }
-  //,
+  ,
 
-  // async delete(req: Request, res: Response) {
-  //   try {
-  //     const { id } = req.params;
-  //     const user = await User.findById(id);
-  //     if (!user) {
-  //       return res.status(404).json({ error: 'User not found' });
-  //     }
-  //     if (!('_id' in user)) {
-  //       throw new Error('Invalid user object');
-  //     }
-  //     await user.delete();
-  //     res.status(200).json({ message: 'User deleted successfully' });
-  //   } catch (error) {
-  //     console.error(error); // registrar el error en la consola
-  //     res.status(500).json({ error: 'Error deleting user' });
-  //   }
-  // }
+  async delete(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const user = await User.findByIdAndDelete(id);
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      console.error(error); // registrar el error en la consola
+      res.status(500).json({ error: 'Error deleting user' });
+    }
+  }
 };
 
 export default userController;
