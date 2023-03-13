@@ -13,9 +13,24 @@ const userController = {
 
   async create(req: Request, res: Response) {
     try {
+      const { idRol, password, email, username } = req.body;
 
-      console.log(req.body)
-      const { idUsuario, username, idRol, password, email } = req.body;
+      // Check if username already exists
+      const existingUsername = await User.findOne({ username });
+      if (existingUsername) {
+        return res.status(400).json({ error: 'Username already exists' });
+      }
+
+      // Check if email already exists
+      const existingEmail = await User.findOne({ email });
+      if (existingEmail) {
+        return res.status(400).json({ error: 'Email already exists' });
+      }
+
+      // Find the last user in the database to increment the idUsuario
+      const lastUser = await User.findOne().sort({ _id: -1 });
+      const idUsuario = lastUser ? lastUser.idUsuario + 1 : 1;
+
       const user = new User({ idUsuario, username, idRol, password, email });
       await user.save();
       res.status(201).json({ message: 'User created successfully' });
